@@ -246,7 +246,7 @@ fun FormMahasiswa(
                             onValueChange(mahasiswaEvent.copy(kelas = kelas))
                         }
                     )
-                    Text(text = "Kelas")
+                    Text(text = kelas)
                 }
             }
         }
