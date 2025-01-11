@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "572770493284",
+    "project_id": "emzhrandatabase",
+    "storage_bucket": "emzhrandatabase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572770493284:android:520c62edfd398079455071",
+        "android_client_info": {
+          "package_name": "com.example.emzhranpam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRVJ9ycgs24KFaxmpAk7GrNoJ7aXUBwbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
