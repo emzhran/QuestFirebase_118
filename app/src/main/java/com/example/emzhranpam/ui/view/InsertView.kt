@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,6 +23,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -28,6 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -49,6 +53,8 @@ fun InsertMhsView(
     modifier: Modifier = Modifier,
     viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
+
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val uiState = viewModel.uiState
     val uiEvent = viewModel.uiEvent
     val snackbarHostState = remember { SnackbarHostState() }
@@ -74,10 +80,11 @@ fun InsertMhsView(
         }
     }
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             TopAppBar(
+                scrollBehavior = scrollBehavior,
                 title = { Text("Tambah Mahasiswa") },
                 navigationIcon = {
                     Button(onClick = onBack) {
@@ -92,6 +99,7 @@ fun InsertMhsView(
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             InsertBodyMhs(
                 uiState = uiEvent,
@@ -267,6 +275,48 @@ fun FormMahasiswa(
         )
         Text(
             text = errorState.angkatan ?:"",
+            color = Color.Red
+        )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.judulskripsi,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(judulskripsi = it))
+            },
+            label = { Text(text = "Judul Skripsi") },
+            isError = errorState.judulskripsi != null,
+            placeholder = { Text("Masukkan Judul") },
+        )
+        Text(
+            text = errorState.judulskripsi ?:"",
+            color = Color.Red
+        )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.DB1,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(DB1 = it))
+            },
+            label = { Text(text = "Dosen Pembimbing 1") },
+            isError = errorState.DB1 != null,
+            placeholder = { Text("Masukkan Dosen Pembimbing 1") },
+        )
+        Text(
+            text = errorState.DB1?:"",
+            color = Color.Red
+        )
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.DB2,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(DB2 = it))
+            },
+            label = { Text(text = "Dosen Pembimbing 2") },
+            isError = errorState.DB2 != null,
+            placeholder = { Text("Masukkan Dosen Pembimbing 2") },
+        )
+        Text(
+            text = errorState.DB2 ?:"",
             color = Color.Red
         )
     }

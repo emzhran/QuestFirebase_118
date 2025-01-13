@@ -31,7 +31,10 @@ class InsertViewModel (
             gender = if (event.gender.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
             alamat = if (event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
             kelas = if (event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
-            angkatan = if (event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong"
+            angkatan = if (event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong",
+            judulskripsi = if (event.angkatan.isNotEmpty()) null else "Judul Skripsi tidak boleh kosong",
+            DB1 = if (event.angkatan.isNotEmpty()) null else "Dosen Pembimbing 1 tidak boleh kosong",
+            DB2 = if (event.angkatan.isNotEmpty()) null else "Dosen Pembimbing 2 tidak boleh kosong"
         )
         uiEvent = uiEvent.copy(isEntryValid = errorState)
         return errorState.isValid()
@@ -79,10 +82,13 @@ data class FormErrorState(
     val alamat: String? = null,
     val kelas: String? = null,
     val angkatan: String? = null,
+    val judulskripsi: String? = null,
+    val DB1: String? = null,
+    val DB2: String? = null
 ){
     fun isValid():Boolean{
         return nim == null && nama == null && gender == null
-                && alamat == null && kelas == null && angkatan == null
+                && alamat == null && kelas == null && angkatan == null && judulskripsi == null && DB1 == null && DB2 == null
     }
 }
 
@@ -92,7 +98,10 @@ data class MahasiswaEvent(
     val gender: String = "",
     val alamat: String = "",
     val kelas: String = "",
-    val angkatan: String = ""
+    val angkatan: String = "",
+    val judulskripsi: String = "",
+    val DB1: String = "",
+    val DB2: String = ""
 )
 
 fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
@@ -101,5 +110,8 @@ fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
     gender = gender,
     alamat = alamat,
     kelas = kelas,
-    angkatan = angkatan
+    angkatan = angkatan,
+    judulskripsi = judulskripsi,
+    DB1 = DB1,
+    DB2 = DB2
 )
